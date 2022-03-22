@@ -104,7 +104,7 @@ class Register
 
         $query = $this->con->prepare($sql);
         $query->bindValue(":user_id", $_SESSION['user_id']);
-        $query->bindValue(":pic", "default.png");
+        $query->bindValue(":pic", "assets/pic/default.png");
 
         return $query->execute();
     }

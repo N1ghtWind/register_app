@@ -51,7 +51,7 @@ if (isset($_POST['submit_user_info'])) {
             $user_id = $profile->getUserID($_SESSION['user_email']);
             $picture_path = $profile->getUserProfilePicture($user_id);
             ?>
-            <img src="assets/pic/<?php echo $picture_path ?>" width="300" class="rounded-circle mx-auto d-block" alt="default">
+            <img src="<?php echo $picture_path ?>" width="300" class="rounded-circle mx-auto d-block" alt="default">
 
 
             <form action="backend/profile_post.php" method="post" enctype="multipart/form-data">

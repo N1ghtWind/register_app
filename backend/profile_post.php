@@ -23,7 +23,7 @@ if (isset($_FILES['image']) && $_FILES['image']["error"] === 0) {
     $width = $fileinfo[0];
     $height = $fileinfo[1];
 
-    
+
 
     $errors = array();
     $file_name = $_FILES['image']['name'];
@@ -53,14 +53,24 @@ if (isset($_FILES['image']) && $_FILES['image']["error"] === 0) {
     if ($width > "600" || $height > "600") {
         $errors[] = "Image dimension should be  600X600";
     }
-    
+
     if (empty($errors)) {
         $file_new_name = $filename . "." . $file_ext;
-        
-        move_uploaded_file($file_tmp, "../assets/pic/" . $file_new_name);
-        $user_id = $profile->getUserID($email);
 
-        $profile->updateProfilePicture($email, $file_new_name, $user_id);
+        isset($_SESSION['user_email']) ?
+            $email = $_SESSION['user_email'] :
+            Redirect::redirect_to('../profile.php?error=1');
+
+        $user_id = $profile->getUserID($email);
+        
+        if (!file_exists("../storage/users/$user_id/profile/")) {
+            mkdir("../storage/users/$user_id/profile/", 0777, true);
+        }
+
+        move_uploaded_file($file_tmp, "../storage/users/$user_id/profile/" . $file_new_name);
+        $user_id = $profile->getUserID($email);
+        $file_new_path = "storage/users/$user_id/profile/" . $file_new_name;
+        $profile->updateProfilePicture($email, $file_new_path, $user_id);
 
         Redirect::redirect_to("../profile.php?success=true");
     } else {
