@@ -2,6 +2,5 @@ config.php
 register.sql
 *.todo
 /backend/classes/Mailer.php
-/assets/pic/*
 /vendor/
 /storage/*
