@@ -1,3 +1,7 @@
 config.php
 register.sql
-user-handler.todo
+*.todo
+/backend/classes/Mailer.php
+/assets/pic/*
+/vendor/
+/storage/*
